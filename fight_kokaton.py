@@ -156,6 +156,7 @@ class Beam:
         self._rct.move_ip(self._vx, self._vy)
         screen.blit(self._img, self._rct)
 
+
 class Score:
     """
     爆弾を撃ち落としたときに点数が加算されるクラス
