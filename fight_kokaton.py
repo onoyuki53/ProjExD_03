@@ -160,8 +160,14 @@ class Beam:
 class Score:
     """
     爆弾を撃ち落としたときに点数が加算されるクラス
+    initではスコアのフォントサイズや、文字列の定義を行っている
+    score_newでスコアを更新する
+    updateでスコアを表示させ、blitしている
     """
     def __init__(self):
+        """
+        initではスコアのフォントサイズや、文字列の定義を行っている
+        """
         self._font = pg.font.Font(None, 50)
         self._color1 = (0,0,0)
         self._score = 0
@@ -170,9 +176,15 @@ class Score:
         self._rct.center = 100, HEIGHT-50
 
     def score_new(self):
+        """
+        score_newでスコアを更新する
+        """
         self._score += 1
 
     def update(self, screen: pg.Surface):
+        """
+        updateでスコアを表示させ、blitしている
+        """
         self._img = self._font.render(f"Score: {self._score}", 0, self._color1)
         screen.blit(self._img, self._rct)
 
