@@ -156,6 +156,25 @@ class Beam:
         self._rct.move_ip(self._vx, self._vy)
         screen.blit(self._img, self._rct)
 
+class Score:
+    """
+    爆弾を撃ち落としたときに点数が加算されるクラス
+    """
+    def __init__(self):
+        self._font = pg.font.Font(None, 50)
+        self._color1 = (0,0,0)
+        self._score = 0
+        self._img = self._font.render(f"Score: {self._score}", 0, self._color1)
+        self._rct = self._img.get_rect()
+        self._rct.center = 100, HEIGHT-50
+
+    def score_new(self):
+        self._score += 1
+
+    def update(self, screen: pg.Surface):
+        self._img = self._font.render(f"Score: {self._score}", 0, self._color1)
+        screen.blit(self._img, self._rct)
+
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -166,6 +185,9 @@ def main():
     bird = Bird(3, (900, 400))
     bombs = [Bomb() for _ in range (NUM_OF_BOMBS)]
     beam = None
+    score = Score()
+    score.update(screen)
+
 
     tmr = 0
     while True:
@@ -183,6 +205,7 @@ def main():
             if bird._rct.colliderect(bomb._rct):
                 # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
                 bird.change_img(8, screen)
+                score.update(screen)
                 pg.display.update()
                 time.sleep(1)
                 return
@@ -199,11 +222,12 @@ def main():
                     bomb = None
                     del bombs[i]
                     bird.change_img(6, screen)
+                    score.score_new()
                     break
-
+                
+        score.update(screen)                
         pg.display.update()
         clock.tick(500)
-
 
 if __name__ == "__main__":
     pg.init()
