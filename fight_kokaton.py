@@ -1,7 +1,7 @@
 import random
 import sys
 import time
-
+from tkinter import messagebox
 import pygame as pg
 
 
@@ -200,7 +200,7 @@ def main():
     beam = None
     score = Score()
     score.update(screen)
-
+    scorenum = 1
 
     tmr = 0
     while True:
@@ -220,7 +220,10 @@ def main():
                 bird.change_img(8, screen)
                 score.update(screen)
                 pg.display.update()
+                scorenum = Score()
+                messagebox.showinfo('ScoreResult' , f"GameOver ") #ゲームが終了したときにダイアログを表示
                 time.sleep(1)
+                
                 return
             
 
@@ -231,6 +234,7 @@ def main():
             beam.update(screen)
             for i ,bomb in enumerate (bombs):
                 if beam._rct.colliderect(bomb._rct):
+                    scorenum += 1
                     beam = None
                     bomb = None
                     del bombs[i]
@@ -240,7 +244,7 @@ def main():
                 
         score.update(screen)                
         pg.display.update()
-        clock.tick(500)
+        clock.tick(100)
 
 if __name__ == "__main__":
     pg.init()
