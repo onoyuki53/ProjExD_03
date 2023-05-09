@@ -100,7 +100,6 @@ class Bird:
         screen.blit(self._img, self._rct)
 
 
-
 class Bomb:
     """
     爆弾に関するクラス
