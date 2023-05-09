@@ -244,7 +244,7 @@ def main():
                 
         score.update(screen)                
         pg.display.update()
-        clock.tick(100)
+        clock.tick(500)
 
 if __name__ == "__main__":
     pg.init()
